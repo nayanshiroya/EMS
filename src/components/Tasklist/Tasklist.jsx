@@ -132,7 +132,9 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
             </React.Fragment>
           ))
         ) : (
-          <p className="text-white text-lg">No tasks found for this category.</p>
+          <p className="text-white text-lg">
+            No tasks found for this category.
+          </p>
         )}
       </div>
     </>

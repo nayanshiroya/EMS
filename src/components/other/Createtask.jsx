@@ -13,13 +13,17 @@ const Createtask = () => {
     readonly: false,
     spellcheck: true,
     toolbarSticky: false,
-    defaultActionOnPaste: "insert_clear_html", // Prevents unwanted styles on paste
-    
-
+    defaultActionOnPaste: "insert_clear_html",
+  
     style: {
-      color: "black", // ✅ Default text color set to black
+      color: "black", // ✅ Ensures typed text is black
+      backgroundColor: "white", // ✅ Ensures background is white
     },
+  
+    iframeStyle: "body { color: black !important; background: white !important; }", // ✅ Enforces styles in editor
   };
+  
+  
   
 
   //////////////////////
@@ -48,7 +52,6 @@ const Createtask = () => {
 
 
     const storedData = JSON.parse(localStorage.getItem("employee")) || userData;
-    console.log(storedData);
 
     // Find and update the assigned employee's tasks
     const updatedData = storedData.map((elem) => {
@@ -68,6 +71,8 @@ const Createtask = () => {
 
     // Store the updated employees data back in localStorage
     localStorage.setItem("employee", JSON.stringify(updatedData));
+    console.log(updatedData);
+
 
     setUserData(updatedData);
 

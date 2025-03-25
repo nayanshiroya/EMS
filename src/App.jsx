@@ -4,10 +4,10 @@ import EmployeeDashboeard from "./components/Dashboard/EmployeeDashboeard";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
 import { Authcontext } from "./context/Authprovider";
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  BrowserRouter,
 } from "react-router-dom";
 
 const App = () => {
@@ -25,6 +25,20 @@ const App = () => {
       setuser(userData.role);
       setloggedinuserdata(userData.data);
     }
+  }, []);
+
+  useEffect(() => {
+    // Listen for changes in localStorage and update state
+    const handleStorageChange = () => {
+      const updatedUser = JSON.parse(localStorage.getItem("loggedinuser"));
+      if (updatedUser) {
+        setuser(updatedUser.role);
+        setloggedinuserdata(updatedUser.data || null);
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const handlelogin = (email, password) => {
@@ -56,7 +70,7 @@ const App = () => {
 
   return (
     <>
-      <Router>
+      <BrowserRouter>
         <Routes>
           {/* Login Route */}
           <Route
@@ -65,7 +79,7 @@ const App = () => {
               !user ? (
                 <Login handlelogin={handlelogin} />
               ) : (
-                <Navigate to={user === "admin" ? "/admin" : "/employee"} />
+                <Navigate to={user === "admin" ? "/admin" :  `/employee/${loggedinuserdata?.id}`} />
               )
             }
           />
@@ -74,7 +88,7 @@ const App = () => {
           <Route
             path="/admin"
             element={
-              user === "admin"  ? (
+              user === "admin" ? (
                 <AdminDashboard
                   changeuser={setuser}
                   data={loggedinuserdata}
@@ -88,7 +102,7 @@ const App = () => {
 
           {/* Employee Dashboard Route */}
           <Route
-            path="/employee"
+            path="/employee/:id"
             element={
               user === "employee" ? (
                 <EmployeeDashboeard
@@ -102,7 +116,7 @@ const App = () => {
             }
           />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </>
   );
 };

@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
 import { Authcontext } from "../../context/Authprovider";
+import { Link, useNavigate } from "react-router-dom";
 
 const Alltask = () => {
+  const navigate = useNavigate();
+
   const [userData] = useContext(Authcontext);
+
+  console.log(userData)
 
   // If no employees exist, show a message
   if (!userData || userData.length === 0) {
@@ -21,9 +26,16 @@ const Alltask = () => {
     return bLastUpdate - aLastUpdate; // Sort descending (most recent first)
   });
 
-  const showemployee = () => {
-   
-  }
+  
+
+  const showemployee = (id) => {
+    const existingData = JSON.parse(localStorage.getItem("loggedinuser")) || {};
+    const updatedData = { ...existingData, role: "employee", data: userData.find(e => e.id === id) };
+  
+    localStorage.setItem("loggedinuser", JSON.stringify(updatedData));
+    window.dispatchEvent(new Event("storage")); // Trigger storage event to update state
+    // navigate(`/employee/${id}`); // Navigate to employee dashboard with correct ID
+  };
 
   return (
     <div id="Tasklist" className="bg-[#1c1c1c] p-5 rounded mt-5">
@@ -36,27 +48,52 @@ const Alltask = () => {
         <h5 className="text-lg font-medium w-1/6">Faileeeed</h5>
       </div>
       <div>
-        {sortedUserData.map((elem, idx) => (
-          <div
-            key={idx}
-            className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded"
-          >
-            <h2 className="text-lg font-medium w-1/5">{elem.id}</h2>
-            <h2 onClick={showemployee} className="text-lg font-medium w-1/5">{elem.firstName}</h2>
-            <h3 className="text-lg font-medium w-1/5 text-blue-400">
-              {elem.taskCounts.newTask}
-            </h3>
-            <h5 className="text-lg font-medium w-1/5 text-yellow-400">
-              {elem.taskCounts.active}
-            </h5>
-            <h5 className="text-lg font-medium w-1/5 text-white">
-              {elem.taskCounts.completed}
-            </h5>
-            <h5 className="text-lg font-medium w-1/5 text-red-600">
-              {elem.taskCounts.failed}
-            </h5>
-          </div>
-        ))}
+        {sortedUserData.map((elem, idx) => {
+          const hasTasks =
+            elem.taskCounts.newTask > 0 ||
+            elem.taskCounts.active > 0 ||
+            elem.taskCounts.completed > 0 ||
+            elem.taskCounts.failed > 0;
+
+          return (
+            <div
+              key={idx}
+              className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded"
+            >
+              <h2 className="text-lg font-medium w-1/5">{elem.id}</h2>
+
+              {hasTasks ? (
+                <Link
+                to={`/employee/${elem.id}`}
+                onClick={(e) => {
+                  e.preventDefault(); // Prevent default <Link> behavior
+                  showemployee(elem.id); // Pass employee ID
+                }}
+                  className="text-lg font-medium w-1/5 text-blue-400 cursor-pointer"
+                >
+                  {elem.firstName}
+                </Link>
+              ) : (
+                <span className="text-lg font-medium w-1/5 text-gray-400">
+                  {elem.firstName}
+                </span>
+              )}
+
+              <h3 className="text-lg font-medium w-1/5 text-blue-400">
+                {elem.taskCounts.newTask}
+              </h3>
+              <h5 className="text-lg font-medium w-1/5 text-yellow-400">
+                {elem.taskCounts.active}
+              </h5>
+              <h5 className="text-lg font-medium w-1/5 text-white">
+                {elem.taskCounts.completed}
+              </h5>
+              <h5 className="text-lg font-medium w-1/5 text-red-600">
+                {elem.taskCounts.failed}
+              </h5>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
