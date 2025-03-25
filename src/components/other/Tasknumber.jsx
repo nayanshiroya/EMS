@@ -3,7 +3,7 @@ import React from "react";
 const Tasknumber = ({ data, setSelectedFilter }) => {
   return (
     <div>
-      <div className="flex justify-between gap-4 mb-4">
+      <div className="flex justify-between gap-4 mb-3">
         <div
           className="bg-blue-500 w-1/4 p-5 rounded-lg cursor-pointer hover:bg-blue-600"
           onClick={() => setSelectedFilter("newTask")}
