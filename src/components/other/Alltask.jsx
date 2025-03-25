@@ -33,7 +33,7 @@ const Alltask = () => {
         <h3 className="text-lg font-medium w-1/6">New Task</h3>
         <h5 className="text-lg font-medium w-1/6">Active Task</h5>
         <h5 className="text-lg font-medium w-1/6">Completed</h5>
-        <h5 className="text-lg font-medium w-1/6">Failed</h5>
+        <h5 className="text-lg font-medium w-1/6">Faileeeed</h5>
       </div>
       <div>
         {sortedUserData.map((elem, idx) => (
