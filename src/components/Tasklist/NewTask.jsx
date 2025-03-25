@@ -1,15 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import TaskDiscription from "./TaskDiscription";
-
-
-
+import { Authcontext } from "../../context/Authprovider";
 
 const NewTask = ({ data, setTaskData }) => {
-  
-  const AcceptTask = () => {
-    let employees = JSON.parse(localStorage.getItem("employee")) || [];
+  const [userData, updateEmployeeData] = useContext(Authcontext);
+  const [state, setState] = useState(true);
 
-    const updatedEmployees = employees.map((employee) => {
+  const handleAcceptTask = () => {
+    const updatedEmployees = userData.map((employee) => {
       if (employee.tasks.some((task) => task.taskTitle === data.taskTitle)) {
         const updatedTasks = employee.tasks.map((task) =>
           task.taskTitle === data.taskTitle
@@ -17,39 +15,26 @@ const NewTask = ({ data, setTaskData }) => {
             : task
         );
 
-        const updatedEmployee = {
+        return {
           ...employee,
           tasks: updatedTasks,
           taskCounts: {
             ...employee.taskCounts,
-            active: employee.taskCounts.active + 1,
-            newTask: Math.max(employee.taskCounts.newTask - 1, 0),
+            active: (employee.taskCounts.active || 0) + 1,
+            newTask: Math.max((employee.taskCounts.newTask || 0) - 1, 0),
           },
         };
-
-        return updatedEmployee;
       }
       return employee;
     });
 
-    // ✅ Save Updated Employee Data in Local Storage
+    updateEmployeeData(updatedEmployees);
     localStorage.setItem("employee", JSON.stringify(updatedEmployees));
 
-    // ✅ Update State to Reflect Changes Immediately
-    setTaskData(
-      updatedEmployees.find((emp) =>
-        emp.tasks.some((task) => task.taskTitle === data.taskTitle)
-      )
-    );
+    setTaskData(updatedEmployees.find((emp) =>
+      emp.tasks.some((task) => task.taskTitle === data.taskTitle)
+    ));
   };
-
-  const [state, setState] = useState(true);
-
-  const discription = () => {
-    setState(false);
-    
-  };
-
 
   return (
     <>
@@ -62,22 +47,24 @@ const NewTask = ({ data, setTaskData }) => {
             </h3>
             <h4 className="text-xs text-gray-200">{data.taskDate}</h4>
           </div>
-  
+
           {/* Task Title */}
-          <h2 className="mt-5 min-h-20 text-2xl font-semibold  break-words">{data.taskTitle}</h2>
-  
+          <h2 className="mt-5 min-h-20 text-2xl font-semibold break-words">
+            {data.taskTitle}
+          </h2>
+
           {/* Full Details Button */}
           <button
-            onClick={discription}
+            onClick={() => setState(false)}
             className="w-full mt-4 py-2 rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-700 transition-all"
           >
             Full Details
           </button>
-  
+
           {/* Accept Task Button */}
           <div className="mt-6 flex flex-wrap gap-4">
             <button
-              onClick={AcceptTask}
+              onClick={handleAcceptTask}
               className="w-full bg-green-500 text-white rounded-lg font-medium py-2 px-3 text-sm hover:bg-green-600 transition-all"
             >
               Accept Task
@@ -89,8 +76,6 @@ const NewTask = ({ data, setTaskData }) => {
       )}
     </>
   );
-  
-  
 };
 
 export default NewTask;
