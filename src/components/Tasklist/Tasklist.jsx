@@ -4,7 +4,7 @@ import NewTask from "./NewTask";
 import CompleteTask from "./CompleteTask";
 import FailedTask from "./FailedTask";
 
-const Tasklist = ({ data, setTaskData, selectedFilter }) => {
+const Tasklist = ({ data, setTaskData, selectedFilter,boxColor,textColor }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("default"); // Default order
 
@@ -65,6 +65,8 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
           value={searchQuery}
           onChange={handleSearchChange}
           className="w-1/2 p-2 border border-gray-300 rounded-md text-black"
+          style={{ backgroundColor: boxColor,
+            color: textColor, }}
         />
 
         {/* Sorting Dropdown */}
@@ -83,6 +85,7 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
       <div
         id="Tasklist"
         className="h-[65%] overflow-auto flex items-center justify-start gap-5 flex-nowrap w-full py-1 pt-14 mt-5"
+        
       >
         {sortedTasks.length > 0 ? (
           sortedTasks.map((task, index) => (
@@ -94,7 +97,8 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
                     taskTitle: highlightText(task.taskTitle),
                     category: highlightText(task.category),
                   }}
-                  setTaskData={setTaskData}
+                  setTaskData={setTaskData} boxColor={boxColor}
+                  textColor={textColor}
                 />
               )}
               {task.newTask && (
@@ -104,7 +108,8 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
                     taskTitle: highlightText(task.taskTitle),
                     category: highlightText(task.category),
                   }}
-                  setTaskData={setTaskData}
+                  setTaskData={setTaskData} boxColor={boxColor}
+                  textColor={textColor}
                 />
               )}
               {task.completed && (
@@ -115,7 +120,8 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
                     taskTitle: highlightText(task.taskTitle),
                     category: highlightText(task.category),
                   }}
-                  setTaskData={setTaskData}
+                  setTaskData={setTaskData} boxColor={boxColor}
+                  textColor={textColor}
                 />
               )}
               {task.failed && (
@@ -126,7 +132,8 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
                     taskTitle: highlightText(task.taskTitle),
                     category: highlightText(task.category),
                   }}
-                  setTaskData={setTaskData}
+                  setTaskData={setTaskData} boxColor={boxColor}
+                  textColor={textColor}
                 />
               )}
             </React.Fragment>
