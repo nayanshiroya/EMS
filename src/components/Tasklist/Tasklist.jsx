@@ -133,7 +133,7 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
           ))
         ) : (
           <p className="text-white text-lg">
-            No tasks found for this category.
+            No tasks found for this category
           </p>
         )}
       </div>
