@@ -1,8 +1,12 @@
 import React, { useContext, useRef, useState } from "react";
 import { Authcontext } from "../../context/Authprovider";
 import JoditEditor from "jodit-react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Createtask = () => {
+
+const {theme} = useContext(ThemeContext)
+
   //////////////////////
 
   const editor = useRef(null);
@@ -89,7 +93,7 @@ const Createtask = () => {
         onSubmit={(e) => {
           submitHandler(e);
         }}
-        className="bg-gray-900 text-white p-6 rounded-lg shadow-lg w-full flex gap-6"
+        className={`${theme.cardColor}  ${theme.textColor} p-6 rounded-lg shadow-lg w-full flex gap-6`}
       >
         {/* Left Side */}
         <div className="w-1/4">
@@ -103,7 +107,7 @@ const Createtask = () => {
               setTaskTitle(e.target.value);
             }}
             placeholder="Make a UI design"
-            className="w-full p-2 mb-4 bg-gray-800 rounded border border-gray-700"
+            className={`w-full p-2 mb-4  rounded border border-gray-700 ${theme.cardColor}  ${theme.textColor}`}
           />
 
           <label className="block mb-2">Date</label>
@@ -112,12 +116,13 @@ const Createtask = () => {
             type="date"
             name="date"
             value={taskDate}
+            placeholder="Select a date"
             onChange={(e) => {
               setTaskDate(e.target.value);
             }}
-            className="w-full p-2 mb-4 bg-gray-800 rounded border border-gray-700"
+            className={`w-full p-2 mb-4 rounded border border-gray-700 ${theme.cardColor} focus:${theme.textColor}  focus:outline-none`}
             style={{
-              colorScheme: "dark", // Ensures the text and calendar icon are styled properly
+              color: theme.textColor, // Ensures the text and calendar icon are styled properly
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM7 12h5v5H7z'/%3E%3C/svg%3E")`,
               backgroundPosition: "right 10px center",
               backgroundRepeat: "no-repeat",
@@ -130,14 +135,16 @@ const Createtask = () => {
             required
             value={asignTo}
             onChange={(e) => setAsignTo(e.target.value)}
-            className="w-full p-2 mb-4 bg-gray-800 rounded border border-gray-700"
+            className={`w-full p-2 mb-4  rounded border border-gray-700 ${theme.cardColor}  ${theme.textColor}`}
+          
           >
+
             <option value="" disabled>
               Select Employee
             </option>
             {userData.map((employee) => (
               <option
-                className=""
+                className={`${theme.cardColor}  ${theme.textColor}`}
                 key={employee.email}
                 value={employee.firstName}
               >
@@ -156,8 +163,9 @@ const Createtask = () => {
               setCategory(e.target.value);
             }}
             placeholder="Design, Dev, etc."
-            className="w-full p-2 mb-4 bg-gray-800 rounded border border-gray-700"
-          />
+            className={`w-full p-2 mb-4  rounded border border-gray-700 ${theme.cardColor}  ${theme.textColor}`}
+
+/>
         </div>
 
         {/* Right Side */}
@@ -183,7 +191,9 @@ const Createtask = () => {
           {/* Button */}
           <button
             type="submit"
-            className="w-full mb-4 pt-3 bg-green-600 hover:bg-blue-500 p-2 rounded font-bold mt-4"
+            className={`w-full mb-4 pt-3 p-2 rounded font-bold mt-4 ${theme.buttonStyles.success.bg} 
+            ${theme.buttonStyles.success.text} 
+            ${theme.buttonStyles.success.hover}`}
           >
             Create Task
           </button>

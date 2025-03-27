@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
+
 
 const Tasknumber = ({ data, setSelectedFilter }) => {
+
+
+ const { theme } = useContext(ThemeContext); 
+
+
   return (
     <div>
       <div className="flex justify-between gap-4 mb-4">
         <div
-          className="bg-blue-500 w-1/4 p-5 rounded-lg cursor-pointer hover:bg-blue-600"
+          className={`${theme.cardColor} ${theme.textColor} shadow-md border w-1/4 p-5 rounded-lg cursor-pointer `}
           onClick={() => setSelectedFilter("newTask")}
         >
           <h2 className="text-3xl font-bold">{data.taskCounts.newTask}</h2>
@@ -13,7 +20,7 @@ const Tasknumber = ({ data, setSelectedFilter }) => {
         </div>
 
         <div
-          className="bg-green-500 w-1/4 p-5 rounded-lg cursor-pointer hover:bg-green-600"
+           className={`${theme.cardColor} ${theme.textColor} shadow-md border w-1/4 p-5 rounded-lg cursor-pointer `}
           onClick={() => setSelectedFilter("completed")}
         >
           <h2 className="text-3xl font-bold">{data.taskCounts.completed}</h2>
@@ -21,7 +28,7 @@ const Tasknumber = ({ data, setSelectedFilter }) => {
         </div>
 
         <div
-          className="bg-yellow-500 w-1/4 p-5 rounded-lg cursor-pointer hover:bg-yellow-600"
+           className={`${theme.cardColor} ${theme.textColor} shadow-md border w-1/4 p-5 rounded-lg cursor-pointer `}
           onClick={() => setSelectedFilter("active")}
         >
           <h2 className="text-3xl font-bold">{data.taskCounts.active}</h2>
@@ -29,7 +36,7 @@ const Tasknumber = ({ data, setSelectedFilter }) => {
         </div>
 
         <div
-          className="bg-red-500 w-1/4 p-5 rounded-lg cursor-pointer hover:bg-red-600"
+           className={`${theme.cardColor} ${theme.textColor} shadow-md border w-1/4 p-5 rounded-lg cursor-pointer `}
           onClick={() => setSelectedFilter("failed")}
         >
           <h2 className="text-3xl font-bold">{data.taskCounts.failed}</h2>

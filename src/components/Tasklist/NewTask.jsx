@@ -1,10 +1,13 @@
 import React, { useState, useContext } from "react";
 import TaskDiscription from "./TaskDiscription";
 import { Authcontext } from "../../context/Authprovider";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const NewTask = ({ data, setTaskData }) => {
   const [userData, updateEmployeeData] = useContext(Authcontext);
   const [state, setState] = useState(true);
+
+  const {theme} = useContext(ThemeContext)
 
   const handleAcceptTask = () => {
     const updatedEmployees = userData.map((employee) => {
@@ -39,13 +42,14 @@ const NewTask = ({ data, setTaskData }) => {
   return (
     <>
       {state ? (
-        <div className="flex-shrink-0 w-[300px] min-h-64 p-5 bg-blue-500 shadow-md rounded-xl border border-blue-400 text-white">
+        <div className={`flex-shrink-0 w-[300px] min-h-64 p-5 ${theme.cardColor}  ${theme.textColor} shadow-md rounded-xl border `}>
           {/* Category & Date */}
           <div className="flex justify-between items-center">
-            <h3 className="bg-red-500 text-white text-xs px-3 py-1 rounded-lg">
+          <h3 className={`${theme.cardColor} text-xs px-3 py-1 rounded-lg `}>
+
               {data.category}
             </h3>
-            <h4 className="text-xs text-gray-200">{data.taskDate}</h4>
+            <h4 className="text-xs">{data.taskDate}</h4>
           </div>
 
           {/* Task Title */}
@@ -56,7 +60,9 @@ const NewTask = ({ data, setTaskData }) => {
           {/* Full Details Button */}
           <button
             onClick={() => setState(false)}
-            className="w-full mt-4 py-2 rounded-lg bg-gray-900 text-white font-medium hover:bg-gray-700 transition-all"
+            className={`w-full mt-4 py-2 rounded-lg ${theme.buttonStyles.primary.bg} 
+            ${theme.buttonStyles.primary.text} 
+            ${theme.buttonStyles.primary.hover}  font-medium hover:bg-gray-700 transition-all`}
           >
             Full Details
           </button>
@@ -65,7 +71,7 @@ const NewTask = ({ data, setTaskData }) => {
           <div className="mt-6 flex flex-wrap gap-4">
             <button
               onClick={handleAcceptTask}
-              className="w-full bg-green-500 text-white rounded-lg font-medium py-2 px-3 text-sm hover:bg-green-600 transition-all"
+              className={`w-full ${theme?.buttonStyles?.success?.bg} ${theme?.buttonStyles?.success?.text} ${theme?.buttonStyles?.success?.hover} rounded-lg font-medium py-2 px-3 text-sm  transition-all`}
             >
               Accept Task
             </button>

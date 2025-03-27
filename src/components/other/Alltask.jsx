@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
 import { Authcontext } from "../../context/Authprovider";
 import { Link, useNavigate } from "react-router-dom";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Alltask = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const [userData] = useContext(Authcontext);
+
+  const {theme} = useContext(ThemeContext)
 
   console.log(userData)
 
@@ -39,7 +42,7 @@ const Alltask = () => {
 
   return (
     <div id="Tasklist" className="bg-[#1c1c1c] p-5 rounded mt-5">
-      <div className="bg-red-400 mb-2 py-2 px-4 flex justify-between rounded">
+      <div className={`${theme.cardColor}  ${theme.textColor} mb-2 border-2 py-2 px-4 flex justify-between rounded`}>
         <h2 className="text-lg font-medium w-1/6">Id</h2>
         <h2 className="text-lg font-medium w-1/6">Employee Name</h2>
         <h3 className="text-lg font-medium w-1/6">New Task</h3>
@@ -58,7 +61,7 @@ const Alltask = () => {
           return (
             <div
               key={idx}
-              className="border-2 border-emerald-500 mb-2 py-2 px-4 flex justify-between rounded"
+              className={`border-2  mb-2 py-2 px-4 flex justify-between rounded ${theme.cardColor}  ${theme.textColor}`}
             >
               <h2 className="text-lg font-medium w-1/5">{elem.id}</h2>
 
@@ -69,26 +72,26 @@ const Alltask = () => {
                   e.preventDefault(); // Prevent default <Link> behavior
                   showemployee(elem.id); // Pass employee ID
                 }}
-                  className="text-lg font-medium w-1/5 text-blue-400 cursor-pointer"
+                  className="text-lg font-medium w-1/5  cursor-pointer"
                 >
                   {elem.firstName}
                 </Link>
               ) : (
-                <span className="text-lg font-medium w-1/5 text-gray-400">
+                <span className="text-lg font-medium w-1/5 ">
                   {elem.firstName}
                 </span>
               )}
 
-              <h3 className="text-lg font-medium w-1/5 text-blue-400">
+              <h3 className="text-lg font-medium w-1/5 ">
                 {elem.taskCounts.newTask}
               </h3>
-              <h5 className="text-lg font-medium w-1/5 text-yellow-400">
+              <h5 className="text-lg font-medium w-1/5 ">
                 {elem.taskCounts.active}
               </h5>
-              <h5 className="text-lg font-medium w-1/5 text-white">
+              <h5 className="text-lg font-medium w-1/5 ">
                 {elem.taskCounts.completed}
               </h5>
-              <h5 className="text-lg font-medium w-1/5 text-red-600">
+              <h5 className="text-lg font-medium w-1/5 ">
                 {elem.taskCounts.failed}
               </h5>
             </div>

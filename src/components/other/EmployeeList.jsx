@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
 import { Authcontext } from "../../context/Authprovider";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const EmployeeList = () => {
   const [userData, setUserData] = useContext(Authcontext);
   const [employeeName, setEmployeeName] = useState("");
   const [removeEmployeeId, setRemoveEmployeeId] = useState(""); // New state for ID input
+  const {theme} = useContext(ThemeContext)
   // Function to add an employee
   const addEmployeeHandler = () => {
     if (!employeeName.trim()) return alert("Enter a valid employee name");
@@ -89,11 +91,13 @@ const EmployeeList = () => {
           value={employeeName}
           onChange={(e) => setEmployeeName(e.target.value)}
           placeholder="Employee name"
-          className="p-2 bg-gray-800 rounded border border-gray-700 text-white"
+          className={`p-2  ${theme.cardColor}  ${theme.textColor} rounded border border-gray-700 `}
         />
         <button
           onClick={addEmployeeHandler}
-          className="bg-green-500 hover:bg-green-700 p-2 rounded text-white font-bold"
+          className={`${theme.buttonStyles.success.bg} 
+          ${theme.buttonStyles.success.text} 
+          ${theme.buttonStyles.success.hover} p-2 rounded  font-bold`}
         >
           Add Employee
         </button>
@@ -106,11 +110,13 @@ const EmployeeList = () => {
           value={removeEmployeeId}
           onChange={(e) => setRemoveEmployeeId(e.target.value)}
           placeholder="Enter Employee ID"
-          className="p-2 bg-gray-800 rounded border border-gray-700 text-white"
+          className={`p-2  ${theme.cardColor}  ${theme.textColor} rounded border border-gray-700 `}
         />
         <button
           onClick={removeEmployeeHandler}
-          className="bg-red-500 hover:bg-red-700 p-2 rounded text-white font-bold"
+          className={`${theme.buttonStyles.warning.bg} 
+          ${theme.buttonStyles.warning.text} 
+          ${theme.buttonStyles.warning.hover} p-2 rounded  font-bold`}
         >
           Remove Employee
         </button>

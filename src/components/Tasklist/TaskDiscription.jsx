@@ -1,16 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import DOMPurify from "dompurify";
 import { X } from "lucide-react"; // Import close icon
+import { ThemeContext } from "../../context/ThemeContext";
 
 const TaskDescription = ({ data, setState }) => {
 
+const {theme} = useContext(ThemeContext)
   const discription = () => {
     setState(true);
     
   };
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="relative w-full max-w-4xl bg-white text-black rounded-lg shadow-lg p-6">
+      <div className={`relative w-full max-w-4xl  rounded-lg shadow-lg p-6 ${theme.cardColor}  ${theme.textColor}`}>
         
         {/* Close Button */}
         <button 
@@ -22,10 +24,14 @@ const TaskDescription = ({ data, setState }) => {
 
         {/* Header */}
         <div className="flex justify-between items-center border-b pb-3">
-          <h3 className="bg-red-600 text-sm px-3 py-1 rounded text-white">
-            {data.category}
-          </h3>
-          <h4  onClick={discription} className="text-sm text-gray-600 h-8 w-6"> <X size={24} /></h4>
+        <h3
+              className={`${theme.buttonStyles.primary.bg} 
+              ${theme.buttonStyles.primary.text} 
+              ${theme.buttonStyles.primary.hover}  text-sm px-3 py-1 rounded  break-words`}
+            >
+              {data.category}
+            </h3>
+          <h4  onClick={discription} className="text-sm text-red-600 h-8 w-6"> <X size={24} /></h4>
         </div>
 
         {/* Title */}
