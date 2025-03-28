@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import Header from "../other/header";
+import Header from "../other/Header";
 import Createtask from "../other/Createtask";
 import Alltask from "../other/Alltask";
 import EmployeeList from "../other/EmployeeList";

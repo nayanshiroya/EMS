@@ -124,7 +124,7 @@ const Createtask = () => {
               backgroundRepeat: "no-repeat",
               backgroundSize: "20px",
               background: theme.cardColor,
-              color: theme.textColor,
+              
             }}
           />
 
