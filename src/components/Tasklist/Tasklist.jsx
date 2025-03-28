@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import AcceptTask from "./AcceptTask";
 import NewTask from "./NewTask";
 import CompleteTask from "./CompleteTask";
 import FailedTask from "./FailedTask";
+import { ThemeContext } from "../../context/ThemeContext";
+
 
 const Tasklist = ({ data, setTaskData, selectedFilter }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOrder, setSortOrder] = useState("default"); // Default order
+
+  const {theme} = useContext(ThemeContext)
 
   // Handle search input change
   const handleSearchChange = (event) => {
@@ -57,21 +61,24 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
 
   return (
     <>
-      <div className="w-full flex mt-11 mb-[-40px] gap-4">
+      <div className="w-full flex flex-wrap mt-11 mb-[-40px] gap-4 items-center">
         {/* Search Input */}
         <input
           type="text"
           placeholder="Search tasks..."
           value={searchQuery}
           onChange={handleSearchChange}
-          className="w-1/2 p-2 border border-gray-300 rounded-md text-black"
+          className={`w-1/2 p-2 border border-gray-300 rounded-md text-black shadow-md  `}
+          style={{background:theme.cardColor,color:theme.textColor,}}
         />
 
         {/* Sorting Dropdown */}
         <select
           value={sortOrder}
           onChange={handleSortChange}
-          className="p-2 border border-gray-300 rounded-md text-black"
+          className={`p-2 border border-gray-300 rounded-md text-black shadow-md  `} 
+          style={{background:theme.cardColor,color:theme.textColor,}}
+
         >
           <option value="default">Sort</option>
           <option value="new">Newest First</option>
@@ -132,9 +139,7 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
             </React.Fragment>
           ))
         ) : (
-          <p className="text-white text-lg">
-            No tasks found for this category.
-          </p>
+          <p style={{color:theme.textColor , background:theme.cardColor}} className={` text-lg`}>No tasks found for this category</p>
         )}
       </div>
     </>

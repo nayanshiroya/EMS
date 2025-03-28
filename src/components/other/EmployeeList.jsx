@@ -1,10 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Authcontext } from "../../context/Authprovider";
+import { ThemeContext } from "../../context/ThemeContext";
+import Success from "../button/success";
+import Warning from "../button/warning";
 
 const EmployeeList = () => {
   const [userData, setUserData] = useContext(Authcontext);
   const [employeeName, setEmployeeName] = useState("");
   const [removeEmployeeId, setRemoveEmployeeId] = useState(""); // New state for ID input
+  const { theme } = useContext(ThemeContext);
   // Function to add an employee
   const addEmployeeHandler = () => {
     if (!employeeName.trim()) return alert("Enter a valid employee name");
@@ -15,7 +19,6 @@ const EmployeeList = () => {
     const employeeExists = userData.some(
       (employee) => employee.firstName.toLowerCase() === lowerCaseName
     );
-
 
     if (employeeExists) {
       alert("Employee already exists!");
@@ -54,15 +57,20 @@ const EmployeeList = () => {
 
   // Function to remove an employee by ID
   const removeEmployeeHandler = () => {
-    if (!removeEmployeeId.trim()) return alert("Enter the Employee ID to remove!");
+    if (!removeEmployeeId.trim())
+      return alert("Enter the Employee ID to remove!");
 
     // Check if the employee exists
-    if (!userData.some(emp => emp.id === removeEmployeeId)) {
+    if (!userData.some((emp) => emp.id === removeEmployeeId)) {
       alert("Employee ID not found!");
       return;
     }
 
-    if (!window.confirm(`Are you sure you want to remove Employee ID ${removeEmployeeId}?`)) {
+    if (
+      !window.confirm(
+        `Are you sure you want to remove Employee ID ${removeEmployeeId}?`
+      )
+    ) {
       return;
     }
 
@@ -89,14 +97,15 @@ const EmployeeList = () => {
           value={employeeName}
           onChange={(e) => setEmployeeName(e.target.value)}
           placeholder="Employee name"
-          className="p-2 bg-gray-800 rounded border border-gray-700 text-white"
+          className={`p-2 rounded border border-gray-700 `}
+          style={{background:theme.cardColor,color:theme.textColor}}
         />
-        <button
+        <Success
           onClick={addEmployeeHandler}
-          className="bg-green-500 hover:bg-green-700 p-2 rounded text-white font-bold"
+          className={`p-2 rounded  font-bold`}
         >
           Add Employee
-        </button>
+        </Success>
       </div>
 
       {/* Remove Employee Section (Using ID) */}
@@ -106,14 +115,16 @@ const EmployeeList = () => {
           value={removeEmployeeId}
           onChange={(e) => setRemoveEmployeeId(e.target.value)}
           placeholder="Enter Employee ID"
-          className="p-2 bg-gray-800 rounded border border-gray-700 text-white"
+          className={`p-2 rounded border border-gray-700 `}
+          style={{background:theme.cardColor,color:theme.textColor}}
+
         />
-        <button
+        <Warning
           onClick={removeEmployeeHandler}
-          className="bg-red-500 hover:bg-red-700 p-2 rounded text-white font-bold"
+          className={` p-2 rounded  font-bold`}
         >
           Remove Employee
-        </button>
+        </Warning>
       </div>
     </div>
   );
