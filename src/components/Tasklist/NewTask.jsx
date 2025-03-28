@@ -2,12 +2,15 @@ import React, { useState, useContext } from "react";
 import TaskDiscription from "./TaskDiscription";
 import { Authcontext } from "../../context/Authprovider";
 import { ThemeContext } from "../../context/ThemeContext";
+import CardComponent from "../CardComponent";
+import Primary from "../button/primary";
+import Success from "../button/success";
 
 const NewTask = ({ data, setTaskData }) => {
   const [userData, updateEmployeeData] = useContext(Authcontext);
   const [state, setState] = useState(true);
 
-  const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
 
   const handleAcceptTask = () => {
     const updatedEmployees = userData.map((employee) => {
@@ -34,20 +37,25 @@ const NewTask = ({ data, setTaskData }) => {
     updateEmployeeData(updatedEmployees);
     localStorage.setItem("employee", JSON.stringify(updatedEmployees));
 
-    setTaskData(updatedEmployees.find((emp) =>
-      emp.tasks.some((task) => task.taskTitle === data.taskTitle)
-    ));
+    setTaskData(
+      updatedEmployees.find((emp) =>
+        emp.tasks.some((task) => task.taskTitle === data.taskTitle)
+      )
+    );
   };
 
   return (
     <>
       {state ? (
-        <div className={`flex-shrink-0 w-[300px] min-h-64 p-5 ${theme.cardColor}  ${theme.textColor} shadow-md rounded-xl border `}>
+        <CardComponent
+          className={`flex-shrink-0 w-[300px] min-h-64 p-5  shadow-md rounded-xl border `}
+        >
           {/* Category & Date */}
           <div className="flex justify-between items-center">
-          <h3 className={`${theme.cardColor} text-xs px-3 py-1 rounded-lg `}>
-
-              {data.category}
+            <h3>
+              <Primary className={`text-sm px-3 py-1 rounded`}>
+                {data.category}
+              </Primary>
             </h3>
             <h4 className="text-xs">{data.taskDate}</h4>
           </div>
@@ -58,25 +66,23 @@ const NewTask = ({ data, setTaskData }) => {
           </h2>
 
           {/* Full Details Button */}
-          <button
+          <Primary
             onClick={() => setState(false)}
-            className={`w-full mt-4 py-2 rounded-lg ${theme.buttonStyles.primary.bg} 
-            ${theme.buttonStyles.primary.text} 
-            ${theme.buttonStyles.primary.hover}  font-medium hover:bg-gray-700 transition-all`}
+            className={`w-full mt-4 py-2 rounded-lg   font-medium hover:bg-gray-700 transition-all`}
           >
             Full Details
-          </button>
+          </Primary>
 
           {/* Accept Task Button */}
           <div className="mt-6 flex flex-wrap gap-4">
-            <button
+            <Success
               onClick={handleAcceptTask}
-              className={`w-full ${theme?.buttonStyles?.success?.bg} ${theme?.buttonStyles?.success?.text} ${theme?.buttonStyles?.success?.hover} rounded-lg font-medium py-2 px-3 text-sm  transition-all`}
+              className={`w-full  rounded-lg font-medium py-2 px-3 text-sm  transition-all`}
             >
               Accept Task
-            </button>
+            </Success>
           </div>
-        </div>
+        </CardComponent>
       ) : (
         <TaskDiscription data={data} setState={setState} />
       )}

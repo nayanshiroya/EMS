@@ -4,8 +4,7 @@ import JoditEditor from "jodit-react";
 import { ThemeContext } from "../../context/ThemeContext";
 
 const Createtask = () => {
-
-const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
 
   //////////////////////
 
@@ -18,17 +17,15 @@ const {theme} = useContext(ThemeContext)
     spellcheck: true,
     toolbarSticky: false,
     defaultActionOnPaste: "insert_clear_html",
-  
+
     style: {
       color: "black", // ✅ Ensures typed text is black
       backgroundColor: "white", // ✅ Ensures background is white
     },
-  
-    iframeStyle: "body { color: black !important; background: white !important; }", // ✅ Enforces styles in editor
+
+    iframeStyle:
+      "body { color: black !important; background: white !important; }", // ✅ Enforces styles in editor
   };
-  
-  
-  
 
   //////////////////////
 
@@ -52,8 +49,6 @@ const {theme} = useContext(ThemeContext)
       failed: false,
       completed: false,
     };
-    
-
 
     const storedData = JSON.parse(localStorage.getItem("employee")) || userData;
 
@@ -77,7 +72,6 @@ const {theme} = useContext(ThemeContext)
     localStorage.setItem("employee", JSON.stringify(updatedData));
     console.log(updatedData);
 
-
     setUserData(updatedData);
 
     setTaskTitle("");
@@ -93,7 +87,8 @@ const {theme} = useContext(ThemeContext)
         onSubmit={(e) => {
           submitHandler(e);
         }}
-        className={`${theme.cardColor}  ${theme.textColor} p-6 rounded-lg shadow-lg w-full flex gap-6`}
+        className={` p-6 rounded-lg shadow-lg w-full flex gap-6`}
+        style={{ background: theme.cardColor, color: theme.textColor }}
       >
         {/* Left Side */}
         <div className="w-1/4">
@@ -107,7 +102,8 @@ const {theme} = useContext(ThemeContext)
               setTaskTitle(e.target.value);
             }}
             placeholder="Make a UI design"
-            className={`w-full p-2 mb-4  rounded border border-gray-700 ${theme.cardColor}  ${theme.textColor}`}
+            className={`w-full p-2 mb-4  rounded border border-gray-700 `}
+            style={{ background: theme.cardColor, color: theme.textColor }}
           />
 
           <label className="block mb-2">Date</label>
@@ -120,13 +116,15 @@ const {theme} = useContext(ThemeContext)
             onChange={(e) => {
               setTaskDate(e.target.value);
             }}
-            className={`w-full p-2 mb-4 rounded border border-gray-700 ${theme.cardColor} focus:${theme.textColor}  focus:outline-none`}
+            className={`w-full p-2 mb-4 rounded border border-gray-700   focus:outline-none`}
             style={{
               color: theme.textColor, // Ensures the text and calendar icon are styled properly
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'%3E%3Cpath d='M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zM7 12h5v5H7z'/%3E%3C/svg%3E")`,
               backgroundPosition: "right 10px center",
               backgroundRepeat: "no-repeat",
               backgroundSize: "20px",
+              background: theme.cardColor,
+              color: theme.textColor,
             }}
           />
 
@@ -135,16 +133,16 @@ const {theme} = useContext(ThemeContext)
             required
             value={asignTo}
             onChange={(e) => setAsignTo(e.target.value)}
-            className={`w-full p-2 mb-4  rounded border border-gray-700 ${theme.cardColor}  ${theme.textColor}`}
-          
+            className={`w-full p-2 mb-4  rounded border border-gray-700 `}
+            style={{ background: theme.cardColor, color: theme.textColor }}
           >
-
             <option value="" disabled>
               Select Employee
             </option>
             {userData.map((employee) => (
               <option
-                className={`${theme.cardColor}  ${theme.textColor}`}
+                className={``}
+                style={{ background: theme.cardColor, color: theme.textColor }}
                 key={employee.email}
                 value={employee.firstName}
               >
@@ -163,9 +161,9 @@ const {theme} = useContext(ThemeContext)
               setCategory(e.target.value);
             }}
             placeholder="Design, Dev, etc."
-            className={`w-full p-2 mb-4  rounded border border-gray-700 ${theme.cardColor}  ${theme.textColor}`}
-
-/>
+            className={`w-full p-2 mb-4  rounded border border-gray-700 `}
+            style={{ background: theme.cardColor, color: theme.textColor }}
+          />
         </div>
 
         {/* Right Side */}
@@ -191,9 +189,12 @@ const {theme} = useContext(ThemeContext)
           {/* Button */}
           <button
             type="submit"
-            className={`w-full mb-4 pt-3 p-2 rounded font-bold mt-4 ${theme.buttonStyles.success.bg} 
-            ${theme.buttonStyles.success.text} 
-            ${theme.buttonStyles.success.hover}`}
+            className={`w-full mb-4 pt-3 p-2 rounded font-bold mt-4 `}
+            style={{
+              background: theme.buttonStyles.success.bg,
+              color: theme.buttonStyles.success.text,
+              hover: theme.buttonStyles.success.hover,
+            }}
           >
             Create Task
           </button>

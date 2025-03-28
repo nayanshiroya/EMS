@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import TaskDiscription from "./TaskDiscription";
 import { Authcontext } from "../../context/Authprovider";
 import { ThemeContext } from "../../context/ThemeContext";
+import CardComponent from "../CardComponent";
+import Primary from "../button/primary";
+import Success from "../button/success";
+import Warning from "../button/warning";
 
 const AcceptTask = ({ data, setTaskData }) => {
   const [userData, updateEmployeeData] = useContext(Authcontext);
@@ -85,16 +89,14 @@ const AcceptTask = ({ data, setTaskData }) => {
   return (
     <>
       {state ? (
-        <div
-          className={`flex-shrink-0 w-[300px] min-h-64  p-5 ${theme.cardColor}  ${theme.textColor} shadow-md rounded-xl border`}
+        <CardComponent
+          className={`flex-shrink-0 w-[300px] min-h-64  p-5shadow-md rounded-xl border`}
         >
           <div className="flex justify-between items-center">
-            <h3
-              className={`${theme.buttonStyles.primary.bg} 
-              ${theme.buttonStyles.primary.text} 
-              ${theme.buttonStyles.primary.hover}  text-sm px-3 py-1 rounded  break-words`}
-            >
-              {data.category}
+            <h3>
+              <Primary className={`text-sm px-3 py-1 rounded  break-words`}>
+                {data.category}
+              </Primary>
             </h3>
             <h4 className="text-sm">{data.taskDate}</h4>
           </div>
@@ -102,34 +104,29 @@ const AcceptTask = ({ data, setTaskData }) => {
             {data.taskTitle}
           </h2>
 
-          <button
+          <Primary
             onClick={() => setState(false)}
-            className={`w-full mt-4 py-2 rounded-lg ${theme.buttonStyles.primary.bg} 
-            ${theme.buttonStyles.primary.text} 
-            ${theme.buttonStyles.primary.hover}  font-medium hover:bg-gray-700 transition-all`}
+            className={`w-full mt-4 py-2 rounded-lg   font-medium hover:bg-gray-700 transition-all`}
           >
             Full Details
-          </button>
+          </Primary>
 
           <div className="mt-6 flex gap-1">
-            <button
+            <Success
               onClick={handleComplete}
-              className={`${theme.buttonStyles.success.bg} 
-              ${theme.buttonStyles.success.text} 
-              ${theme.buttonStyles.success.hover} w-full   rounded-lg font-medium py-2 text-sm transition-all`}
+              className={` w-full   rounded-lg font-medium py-2 text-sm transition-all`}
             >
               Mark as Complete
-            </button>
-            <button
+            </Success>
+
+            <Warning
               onClick={handleFailed}
-              className={`${theme.buttonStyles.warning.bg} 
-              ${theme.buttonStyles.warning.text} 
-              ${theme.buttonStyles.warning.hover} w-full   rounded-lg font-medium py-2 text-sm transition-all`}
+              className={` w-full   rounded-lg font-medium py-2 text-sm transition-all`}
             >
               Mark as failed
-            </button>
+            </Warning>
           </div>
-        </div>
+        </CardComponent>
       ) : (
         <TaskDiscription data={data} setState={setState} />
       )}

@@ -21,7 +21,9 @@ const EmployeeDashboard = (props) => {
   
     if (!taskData) return <p>Loading...</p>;
   return (
-    <div className={`${theme.bgColor} p-10 bg-[#1c1c1c] h-screen`}>
+    <div  className={` p-10 h-[100%] `}
+    style={{background:theme.bgColor}}
+    >
       <Header
         changeuser={props.changeuser}
         data={taskData}

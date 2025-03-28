@@ -2,15 +2,16 @@ import React, { useContext } from "react";
 import { Authcontext } from "../../context/Authprovider";
 import { Link, useNavigate } from "react-router-dom";
 import { ThemeContext } from "../../context/ThemeContext";
+import CardComponent from "../CardComponent";
 
 const Alltask = () => {
   // const navigate = useNavigate();
 
   const [userData] = useContext(Authcontext);
 
-  const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
 
-  console.log(userData)
+  console.log(userData);
 
   // If no employees exist, show a message
   if (!userData || userData.length === 0) {
@@ -29,12 +30,14 @@ const Alltask = () => {
     return bLastUpdate - aLastUpdate; // Sort descending (most recent first)
   });
 
-  
-
   const showemployee = (id) => {
     const existingData = JSON.parse(localStorage.getItem("loggedinuser")) || {};
-    const updatedData = { ...existingData, role: "employee", data: userData.find(e => e.id === id) };
-  
+    const updatedData = {
+      ...existingData,
+      role: "employee",
+      data: userData.find((e) => e.id === id),
+    };
+
     localStorage.setItem("loggedinuser", JSON.stringify(updatedData));
     window.dispatchEvent(new Event("storage")); // Trigger storage event to update state
     // navigate(`/employee/${id}`); // Navigate to employee dashboard with correct ID
@@ -42,14 +45,16 @@ const Alltask = () => {
 
   return (
     <div id="Tasklist" className="bg-[#1c1c1c] p-5 rounded mt-5">
-      <div className={`${theme.cardColor}  ${theme.textColor} mb-2 border-2 py-2 px-4 flex justify-between rounded`}>
+      <CardComponent
+        className={` mb-2 border-2 py-2 px-4 flex justify-between rounded`}
+      >
         <h2 className="text-lg font-medium w-1/6">Id</h2>
         <h2 className="text-lg font-medium w-1/6">Employee Name</h2>
         <h3 className="text-lg font-medium w-1/6">New Task</h3>
         <h5 className="text-lg font-medium w-1/6">Active Task</h5>
         <h5 className="text-lg font-medium w-1/6">Completed</h5>
         <h5 className="text-lg font-medium w-1/6">Failed</h5>
-      </div>
+      </CardComponent>
       <div>
         {sortedUserData.map((elem, idx) => {
           const hasTasks =
@@ -59,19 +64,19 @@ const Alltask = () => {
             elem.taskCounts.failed > 0;
 
           return (
-            <div
+            <CardComponent
               key={idx}
-              className={`border-2  mb-2 py-2 px-4 flex justify-between rounded ${theme.cardColor}  ${theme.textColor}`}
+              className={`border-2  mb-2 py-2 px-4 flex justify-between rounded`}
             >
               <h2 className="text-lg font-medium w-1/5">{elem.id}</h2>
 
               {hasTasks ? (
                 <Link
-                to={`/employee/${elem.id}`}
-                onClick={(e) => {
-                  e.preventDefault(); // Prevent default <Link> behavior
-                  showemployee(elem.id); // Pass employee ID
-                }}
+                  to={`/employee/${elem.id}`}
+                  onClick={(e) => {
+                    e.preventDefault(); // Prevent default <Link> behavior
+                    showemployee(elem.id); // Pass employee ID
+                  }}
                   className="text-lg font-medium w-1/5  cursor-pointer"
                 >
                   {elem.firstName}
@@ -94,7 +99,7 @@ const Alltask = () => {
               <h5 className="text-lg font-medium w-1/5 ">
                 {elem.taskCounts.failed}
               </h5>
-            </div>
+            </CardComponent>
           );
         })}
       </div>

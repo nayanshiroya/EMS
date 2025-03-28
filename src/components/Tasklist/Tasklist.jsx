@@ -59,20 +59,6 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
     sortedTasks.sort((a, b) => new Date(a.taskDate) - new Date(b.taskDate)); // Oldest First
   }
 
-  // const [showForm, setShowForm] = useState(false);
-  // const [theme, setTheme] = useState({
-  //   boxBg: "bg-gray-200",
-  //   mainBg: "bg-white",
-  //   buttonColor: "bg-blue-500",
-  //   dangerButton: "bg-red-500",
-  //   textColor: "text-black",
-  // });
-
-  // const handleThemeChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setTheme((prev) => ({ ...prev, [name]: value }));
-  // };
-
   return (
     <>
       <div className="w-full flex flex-wrap mt-11 mb-[-40px] gap-4 items-center">
@@ -82,14 +68,17 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
           placeholder="Search tasks..."
           value={searchQuery}
           onChange={handleSearchChange}
-          className={`w-1/2 p-2 border border-gray-300 rounded-md text-black shadow-md ${theme.cardColor} ${theme.textColor} `}
+          className={`w-1/2 p-2 border border-gray-300 rounded-md text-black shadow-md  `}
+          style={{background:theme.cardColor,color:theme.textColor,}}
         />
 
         {/* Sorting Dropdown */}
         <select
           value={sortOrder}
           onChange={handleSortChange}
-          className={`p-2 border border-gray-300 rounded-md text-black shadow-md   ${theme.cardColor} ${theme.textColor}   `} 
+          className={`p-2 border border-gray-300 rounded-md text-black shadow-md  `} 
+          style={{background:theme.cardColor,color:theme.textColor,}}
+
         >
           <option value="default">Sort</option>
           <option value="new">Newest First</option>
@@ -150,7 +139,7 @@ const Tasklist = ({ data, setTaskData, selectedFilter }) => {
             </React.Fragment>
           ))
         ) : (
-          <p className={`${theme.textColor} text-lg`}>No tasks found for this category</p>
+          <p style={{color:theme.textColor}} className={` text-lg`}>No tasks found for this category</p>
         )}
       </div>
     </>
