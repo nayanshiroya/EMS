@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import Header from "../other/header";
+import Header from "../other/Header.jsx";
 import Tasknumber from "../other/Tasknumber";
 import Tasklist from "../Tasklist/Tasklist";
 import { getlocalstorage } from "../../utils/localstorage";
