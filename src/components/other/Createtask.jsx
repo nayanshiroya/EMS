@@ -82,7 +82,7 @@ const Createtask = () => {
   };
 
   return (
-    <div className="flex justify-center h-full bg-black p-4">
+    <div className="flex justify-center h-full  p-4">
       <form
         onSubmit={(e) => {
           submitHandler(e);

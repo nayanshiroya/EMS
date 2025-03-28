@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
+import { stringify } from "postcss";
 
 const Settings = ({ closeSettings }) => {
   const [showForm, setShowForm] = useState(false);
@@ -137,8 +138,11 @@ const Settings = ({ closeSettings }) => {
       textColor: color1 ? color1 : prevTheme.textColor,
       cardColor: color2 ? color2 : prevTheme.cardColor,
     }));
+    localStorage.setItem("theme",JSON.stringify(theme))
+
   };
-  console.log("theme:", theme);
+  
+  
 
   return (
     <div className="p-6 border rounded-lg bg-white shadow-lg w-96 fixed top-16 right-4 z-50">
@@ -151,7 +155,11 @@ const Settings = ({ closeSettings }) => {
         {themes.map((t, index) => (
           <div
             key={index}
-            onClick={() => setTheme(t)}
+            onClick={() => {setTheme(t)
+              localStorage.setItem("theme",JSON.stringify(theme))
+
+              
+            }}
             className={`w-10 h-10 rounded-full cursor-pointer border-2 transition-all duration-300  hover:scale-110`}
             style={{background: t.cardColor}}
             

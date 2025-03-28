@@ -16,10 +16,10 @@ const Alltask = () => {
   // If no employees exist, show a message
   if (!userData || userData.length === 0) {
     return (
-      <div className="bg-[#1c1c1c] p-5 rounded mt-5 text-white text-center">
+      <CardComponent className=" p-5 rounded mt-5 text-center">
         <h2 className="text-lg font-medium">No Employees Found</h2>
         <p className="text-gray-400">Add an employee to view tasks.</p>
-      </div>
+      </CardComponent>
     );
   }
 
@@ -44,7 +44,7 @@ const Alltask = () => {
   };
 
   return (
-    <div id="Tasklist" className="bg-[#1c1c1c] p-5 rounded mt-5">
+    <div id="Tasklist" className=" p-5 rounded mt-5">
       <CardComponent
         className={` mb-2 border-2 py-2 px-4 flex justify-between rounded`}
       >
@@ -77,12 +77,12 @@ const Alltask = () => {
                     e.preventDefault(); // Prevent default <Link> behavior
                     showemployee(elem.id); // Pass employee ID
                   }}
-                  className="text-lg font-medium w-1/5  cursor-pointer"
+                  className="text-lg font-medium w-1/5 underline cursor-pointer"
                 >
                   {elem.firstName}
                 </Link>
               ) : (
-                <span className="text-lg font-medium w-1/5 ">
+                <span style={{opacity:0.5}} className="text-lg font-medium w-1/5 ">
                   {elem.firstName}
                 </span>
               )}

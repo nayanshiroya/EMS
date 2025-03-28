@@ -1,16 +1,15 @@
 import React, { createContext, useEffect, useState } from "react";
-import { cn } from "../utils/utils";
 
 // Create Theme Context
 export const ThemeContext = createContext();
 
 // Theme Provider
 const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(  {
-    name: "Light Mode",
-    bgColor: "#FFFFFF", // bg-white
-    textColor: "#000000", // text-black
-    cardColor: "#F3F4F6", // bg-gray-100
+  const defaultTheme = {
+    name: "Dark Mode",
+    bgColor: "#111827", // bg-gray-900
+    textColor: "#FFFFFF", // text-white
+    cardColor: "#1F2937", // bg-gray-800
     buttonStyles: {
       primary: {
         bg: "#A855F7", // bg-purple-500
@@ -33,17 +32,24 @@ const ThemeProvider = ({ children }) => {
         hover: "#C3DAFE", // hover:bg-indigo-300
       },
     },
-  },);
+  };
+
+  const [theme, setTheme] = useState(() => {
+    // Load from local storage, or use default theme
+    const storedTheme = localStorage.getItem("theme");
+    return storedTheme ? JSON.parse(storedTheme) : defaultTheme;
+  });
+
+  useEffect(() => {
+    // Save theme to local storage whenever it changes
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }, [theme]);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <div className={"min-h-screen text-center"}>
-        {children}
-      </div>
+      <div className={"min-h-screen text-center"}>{children}</div>
     </ThemeContext.Provider>
   );
 };
 
-export default ThemeProvider
-
-
+export default ThemeProvider;
