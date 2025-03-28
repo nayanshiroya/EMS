@@ -19,4 +19,4 @@ const Warning = ({children, className,onClick}) => {
   );
 };
 
-export default Warning;
+export default Warning
