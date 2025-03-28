@@ -32,11 +32,22 @@ const EmployeeList = () => {
 
     const formattedName = capitalizeFirstLetter(employeeName);
 
-    // Get the next ID based on the current number of employees
-    const nextId = userData.length + 1;
+    // Generate the next available ID by checking existing IDs
+    const generateNextId = (employees) => {
+      const existingIds = employees.map(emp => parseInt(emp.id, 10)).filter(Number.isInteger);
+      console.log(existingIds)
+
+      if (existingIds.length === 0) return "1"; // If no employees exist, start with "1"
+
+      for (let i = 1; i <= Math.max(...existingIds) + 1; i++) {
+        if (!existingIds.includes(i)) return i.toString();
+      }
+    };
+
+    const nextId = generateNextId(userData); // Generate the next available ID
 
     const newEmployeeData = {
-      id: nextId.toString(), // Assigning sequential ID
+      id: nextId, // Assigning the next available ID as a string
       firstName: formattedName,
       email: `${formattedName.toLowerCase()}@e.com`,
       password: "123",
@@ -54,6 +65,7 @@ const EmployeeList = () => {
     localStorage.setItem("employee", JSON.stringify(updatedData));
     setEmployeeName(""); // Clear input field
   };
+
 
   // Function to remove an employee by ID
   const removeEmployeeHandler = () => {
