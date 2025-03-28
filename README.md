@@ -12,8 +12,7 @@ EMS is a frontend-only React application designed for practicing React concepts.
 -   [Usage](#usage)
 -   [Customization](#customization)
 -   [Contributing](#contributing)
--   [License](#license)
--   [Contact](#contact)
+
 
 ## About The Project
 
