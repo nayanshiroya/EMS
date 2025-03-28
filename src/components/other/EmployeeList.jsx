@@ -75,13 +75,10 @@ const EmployeeList = () => {
     }
 
     // Filter out the removed employee and reassign IDs sequentially
-    const updatedData = userData
-      .filter((employee) => employee.id !== removeEmployeeId)
-      .map((employee, index) => ({
-        ...employee,
-        id: (index + 1).toString(), // Reassign IDs sequentially
-      }));
-
+    const updatedData = userData.filter(
+      (employee) => employee.id !== removeEmployeeId
+    );
+    
     setUserData(updatedData);
     localStorage.setItem("employee", JSON.stringify(updatedData));
     alert(`Employee with ID ${removeEmployeeId} has been removed.`);
