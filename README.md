@@ -92,10 +92,5 @@ As this is a practice project, contributions are generally not expected. However
 4.  Push to the branch (`git push origin feature/AmazingFeature`).
 5.  Open a pull request.
 
-## License
 
-This project is licensed under the [MIT](LICENSE) License.
-
-## Contact
-
-Your Name - [Your Email](mailto:your.email@example.com) - [Project Link](https://your-project-url.com)
+[Project Link](https://your-project-url.com)
