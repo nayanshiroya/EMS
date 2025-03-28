@@ -5,7 +5,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 import CardComponent from "../CardComponent";
 import Primary from "../button/primary";
 import Success from "../button/success";
-import Warning from "../button/warning";
+import Warning from "../button/Warning.jsx";
 
 const AcceptTask = ({ data, setTaskData }) => {
   const [userData, updateEmployeeData] = useContext(Authcontext);

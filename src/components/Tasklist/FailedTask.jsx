@@ -4,7 +4,7 @@ import TaskDiscription from "./TaskDiscription";
 import { ThemeContext } from "../../context/ThemeContext";
 import CardComponent from "../CardComponent";
 import Primary from "../button/primary";
-import Warning from "../button/warning";
+import Warning from "../button/Warning";
 
 const FailedTask = ({ data, setTaskData, employeeId }) => {
   const [userData, updateEmployeeData] = useContext(Authcontext);

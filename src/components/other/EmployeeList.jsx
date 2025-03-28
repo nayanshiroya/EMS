@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
 import { Authcontext } from "../../context/Authprovider";
 import { ThemeContext } from "../../context/ThemeContext";
-import Success from "../button/success";
-import Warning from "../button/warning";
+import Success from "../button/success.jsx";
+import Warning from "../button/warning.jsx";
 
 const EmployeeList = () => {
   const [userData, setUserData] = useContext(Authcontext);

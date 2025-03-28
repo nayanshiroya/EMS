@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import Settings from "./Settings";
 import CardComponent from "../CardComponent";
-import Warning from "../button/warning";
+import Warning from "../button/Warning.jsx";
 
 const Header = ({ changeuser, data, data11 }) => {
   const { theme } = useContext(ThemeContext);
