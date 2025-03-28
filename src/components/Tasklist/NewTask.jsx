@@ -3,8 +3,8 @@ import TaskDiscription from "./TaskDiscription";
 import { Authcontext } from "../../context/Authprovider";
 import { ThemeContext } from "../../context/ThemeContext";
 import CardComponent from "../CardComponent";
-import Primary from "../button/primary";
-import Success from "../button/success";
+import Primary from "../button/Primary";
+import Success from "../button/Success";
 
 const NewTask = ({ data, setTaskData }) => {
   const [userData, updateEmployeeData] = useContext(Authcontext);

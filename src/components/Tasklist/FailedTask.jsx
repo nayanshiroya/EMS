@@ -3,7 +3,7 @@ import { Authcontext } from "../../context/Authprovider";
 import TaskDiscription from "./TaskDiscription";
 import { ThemeContext } from "../../context/ThemeContext";
 import CardComponent from "../CardComponent";
-import Primary from "../button/primary";
+import Primary from "../button/Primary";
 import Warning from "../button/Warning";
 
 const FailedTask = ({ data, setTaskData, employeeId }) => {

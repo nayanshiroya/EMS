@@ -3,7 +3,7 @@ import DOMPurify from "dompurify";
 import { X } from "lucide-react"; // Import close icon
 import { ThemeContext } from "../../context/ThemeContext";
 import CardComponent from "../CardComponent";
-import Primary from "../button/primary";
+import Primary from "../button/Primary";
 
 const TaskDescription = ({ data, setState }) => {
 
